@@ -79,13 +79,13 @@ export default {
     },
     jsonSchema(json) {
       this.schema = this.parseJSON(json);  
-    },
+    }/*,
     data(obj) {
       this.jsonData = JSON.stringify(obj);
     },
     schema(obj) {
       this.jsonSchema = JSON.stringify(obj);
-    }
+    }*/
   },
   mounted() {
     this.data = this.parseJSON(this.jsonData);  
