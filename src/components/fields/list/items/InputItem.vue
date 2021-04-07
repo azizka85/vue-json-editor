@@ -1,7 +1,7 @@
 <template>
   <b-form-input
     ref="input"
-    class="space-between"
+    class="mb-2"
     :placeholder="item.placeholder"
     :type="item.format"
     :value="item.value"
@@ -36,9 +36,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.space-between + .space-between {
-  margin-top: 0.5rem;
-}
-</style>
