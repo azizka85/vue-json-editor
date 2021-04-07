@@ -10,7 +10,14 @@
       :category="category"
       :item="child"
     ></component>
-    <b-button size="sm" variant="outline-primary">Add item</b-button>
+    <b-dropdown 
+      size="sm" 
+      variant="outline-primary" 
+      text="Add item"
+    >
+      <b-dropdown-item>Input item</b-dropdown-item>
+      <b-dropdown-item>Group item</b-dropdown-item>
+    </b-dropdown>
   </div>  
 </template>
 

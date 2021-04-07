@@ -35,7 +35,14 @@
                 :category="categoryKey"
                 :field="field"
               ></component>
-              <b-button size="sm" variant="outline-primary">Add field</b-button>
+              <b-dropdown 
+                size="sm" 
+                variant="outline-primary" 
+                text="Add field"
+              >
+                <b-dropdown-item>Input field</b-dropdown-item>
+                <b-dropdown-item>List field</b-dropdown-item>
+              </b-dropdown>
             </b-form>
           </template>          
         </template>  
