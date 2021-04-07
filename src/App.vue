@@ -85,6 +85,7 @@ export default {
   methods: {
     addForm() {
       this.createForm(Date.now());
+      this.setJSON(this.data);
     },
     addField(form, type) {
       this.createFieldInForm({
