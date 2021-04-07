@@ -38,10 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/bootstrap.scss";
-
 .space-between + .space-between {
-  @extend .mt-3;
+  margin-top: 0.5rem;
 }
 </style>
