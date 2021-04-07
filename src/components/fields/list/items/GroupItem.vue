@@ -10,7 +10,6 @@
       :category="category"
       :item="child"
     ></component>
-    <b-button size="sm" variant="outline-primary">Add item</b-button>
   </div>  
 </template>
 

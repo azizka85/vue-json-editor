@@ -36,3 +36,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.space-between + .space-between {
+  margin-top: 0.5rem;
+}
+</style>
