@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "bootstrap";
+@import "~bootstrap/scss/bootstrap.scss";
 
 .space-between + .space-between {
   @extend .mt-3;
