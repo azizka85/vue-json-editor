@@ -35,8 +35,16 @@
       variant="outline-primary" 
       text="Add item"
       >
-        <b-dropdown-item>Input item</b-dropdown-item>
-        <b-dropdown-item>Group item</b-dropdown-item>
+        <b-dropdown-item-button 
+        @click="addItem('InputItem')"
+      >
+        Input item
+      </b-dropdown-item-button>
+      <b-dropdown-item-button
+        @click="addItem('GroupItem')"
+      >
+        Group item
+      </b-dropdown-item-button>
       </b-dropdown>    
     </b-collapse>     
   </div>
@@ -58,6 +66,13 @@ export default {
     ])
   },
   methods: {
+    addItem(type) {
+      this.createItemInList({
+        list: this.field,
+        type
+      });
+      this.setJSON(this.data);
+    },
     toggleCollapse() {
       this.setFieldCollapsed({
         field: this.field,
@@ -66,12 +81,14 @@ export default {
       this.setJSON(this.data);
     },  
     ...mapActions([
+      'createItemInList',
       'setFieldCollapsed',
       'setJSON'
     ])  
   },
   components: {
-    "GroupItem": () => import('./items/GroupItem')
+    "GroupItem": () => import('./items/GroupItem'),
+    "InputItem": () => import('./items/InputItem')
   }
 }
 </script>

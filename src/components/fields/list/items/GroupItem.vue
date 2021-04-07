@@ -15,13 +15,23 @@
       variant="outline-primary" 
       text="Add item"
     >
-      <b-dropdown-item>Input item</b-dropdown-item>
-      <b-dropdown-item>Group item</b-dropdown-item>
+      <b-dropdown-item-button 
+        @click="addItem('InputItem')"
+      >
+        Input item
+      </b-dropdown-item-button>
+      <b-dropdown-item-button
+        @click="addItem('GroupItem')"
+      >
+        Group item
+      </b-dropdown-item-button>
     </b-dropdown>
   </div>  
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: "GroupItem",
   props: {
@@ -29,6 +39,25 @@ export default {
     field: String,
     category: String,
     item: Object
+  },
+  computed: {
+    ...mapGetters([
+      'data'
+    ])
+  },
+  methods: {
+    addItem(type) {
+      this.createItemInGroup({
+        groupItem: this.item,
+        key: Date.now(),
+        type
+      });
+      this.setJSON(this.data);
+    },
+    ...mapActions([
+      'createItemInGroup',
+      'setJSON'
+    ])
   },
   components: {
     "InputItem": () => import('./InputItem')

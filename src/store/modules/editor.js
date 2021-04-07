@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export default {
   state: {
     data: {
@@ -57,7 +59,8 @@ export default {
       },
       style: {
         active: false,
-        title: "Style"
+        title: "Style",
+        fields: {}
       }      
     }, 
     json: "",
@@ -81,6 +84,18 @@ export default {
     },
     updateFieldValue(_, {field, value}) {
       field.value = value;
+    },
+    updateItem(_, {items, key, item}) {
+      Vue.set(items, key, item);
+    },
+    addItem(_, {items, item}) {
+      items.push(item);
+    },
+    updateField(_, {fields, key, field}) {
+      Vue.set(fields, key, field);
+    },
+    updateForm(state, {key, form}) {
+      Vue.set(state.data, key, form);
     }
   },
   actions: {
@@ -147,6 +162,74 @@ export default {
     },
     setFieldValue({commit}, {field, value}) {
       commit('updateFieldValue', {field, value});
+    },
+    setItemToGroup({commit}, {groupItem, key, item}) {
+      commit('updateItem', {
+        items: groupItem.items,
+        key,
+        item
+      });
+    },
+    createItemInGroup({dispatch, getters}, {groupItem, key, type}) {
+      dispatch('setItemToGroup', {
+        groupItem,
+        key,
+        item: getters.newItem(type)
+      });
+    },
+    appendItemIntoList({commit}, {list, item}) {
+      commit('addItem', {
+        items: list.items,
+        item
+      });
+    },
+    createItemInList({dispatch, getters}, {list, type}) {
+      dispatch('appendItemIntoList', {
+        list,
+        item: getters.newItem(type)
+      });
+    },
+    setFieldToForm({commit}, {form, key, field}) {
+      commit('updateField', {
+        fields: form.fields,
+        key,
+        field
+      });
+    },
+    createFieldInForm({dispatch, getters}, {form, key, type}) {
+      dispatch('setFieldToForm', {
+        form,
+        key,
+        field: getters.newField(type)
+      });
+    },
+    setForm({commit, dispatch}, {key, form}) {
+      commit('updateForm', {
+        key,
+        form
+      });
+
+      if(form.active) {
+        dispatch('setActiveForm', form);
+      }
+    },
+    createForm({dispatch, getters}, key) {
+      const newForm = {
+        active: true,
+        title: "Custom",
+        fields: {}
+      };
+
+      if(!getters.data) {
+        dispatch('setData', {
+          [key]: newForm
+        });
+      } else {
+        dispatch('setForm', {
+          key,
+          form: newForm
+        });
+      }
     }
   },
   getters: {
@@ -158,6 +241,50 @@ export default {
     },
     activeForm(state) {
       return state.activeForm;
+    },
+    newItem: _ => type => {
+      switch(type) {
+        case "InputItem":
+          return {
+            type,
+            format: "text",
+            placeholder: "/sign-up",
+            value: "" 
+          };
+        case "GroupItem": 
+          return {
+            type,
+            items: {}
+          };
+      }
+
+      return null;
+    },
+    newField: _ => type => {
+      switch(type) {
+        case "InputField":
+          return {
+            type,  
+            format: "text",
+            title: "Title text",
+            label: "Enter the title",
+            description: "Leave this field blank to remove the title.",
+            placeholder: "We Never Stop Smiling!",
+            value: "",
+            collapsed: false
+          };
+        case "ListField":
+          return {
+            type,
+            title: "Call to action buttons",
+            label: "Edit the buttons",
+            description: "CTA (call to action) is what you want your visitors to do: sign up, learn more or read an article.",
+            collapsed: false,
+            items: []
+          };
+      }
+
+      return null;
     }
   }
 };

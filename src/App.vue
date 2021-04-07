@@ -40,13 +40,27 @@
                 variant="outline-primary" 
                 text="Add field"
               >
-                <b-dropdown-item>Input field</b-dropdown-item>
-                <b-dropdown-item>List field</b-dropdown-item>
+                <b-dropdown-item-button 
+                  @click="addField(category, 'InputField')"
+                >
+                  Input field
+                </b-dropdown-item-button>
+                <b-dropdown-item-button 
+                  @click="addField(category, 'ListField')"
+                >
+                  List field
+                </b-dropdown-item-button>
               </b-dropdown>
             </b-form>
           </template>          
         </template>  
-        <b-button size="sm" variant="outline-primary">Add form</b-button>                
+        <b-button 
+          size="sm" 
+          variant="outline-primary"
+          @click="addForm"
+        >
+          Add form
+        </b-button>                
       </b-col>
     </b-row>
   </b-container>
@@ -69,6 +83,17 @@ export default {
     this.setData(this.data);
   },
   methods: {
+    addForm() {
+      this.createForm(Date.now());
+    },
+    addField(form, type) {
+      this.createFieldInForm({
+        form,
+        key: Date.now(),
+        type
+      });
+      this.setJSON(this.data);
+    },
     updateJSON() {
       this.setJSON(this.$refs.jsonText.$el.value);
       this.setData(this.$refs.jsonText.$el.value);
@@ -78,6 +103,8 @@ export default {
       this.setJSON(this.data);
     },
     ...mapActions([
+      'createForm',
+      'createFieldInForm',
       'setActiveForm',
       'setJSON',
       'setData'
