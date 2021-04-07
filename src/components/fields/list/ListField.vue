@@ -29,7 +29,8 @@
         :field="name"
         :category="category"
         :item="item"
-      ></component>     
+      ></component> 
+      <b-button size="sm" variant="outline-primary">Add item</b-button>    
     </b-collapse>     
   </div>
 </template>
