@@ -6,11 +6,11 @@
     :type="item.format"
     :value="item.value"
     @input="onInput"
-  ></b-form-input>  
+  ></b-form-input>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "InputItem",
@@ -19,27 +19,22 @@ export default {
     name: String,
     field: String,
     category: String,
-    item: Object
+    item: Object,
   },
   computed: {
-    ...mapGetters([
-      'data'
-    ])
+    ...mapGetters(["data"]),
   },
   methods: {
     onInput() {
       this.setFieldValue({
         field: this.item,
-        value: this.$refs.input.$el.value
+        value: this.$refs.input.$el.value,
       });
       this.setJSON(this.data);
     },
-    ...mapActions([
-      'setFieldValue',
-      'setJSON'
-    ])
-  }
-}
+    ...mapActions(["setFieldValue", "setJSON"]),
+  },
+};
 </script>
 
 <style lang="scss">
