@@ -86,6 +86,6 @@ export default {
 <style lang="scss" scoped>
 .json {
   min-height: 20rem;
-  height: 88%;
+  height: 87%;
 }
 </style>
