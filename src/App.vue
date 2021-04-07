@@ -6,7 +6,8 @@
         <p>Below the raw JSON data</p>
         <b-form-textarea 
           ref="jsonText"
-          class="json mb-3" 
+          rows="25" 
+          class="mb-3" 
           :value="json"
           @input="updateJSON"
         ></b-form-textarea>        
@@ -26,7 +27,7 @@
         </b-nav>
         <template v-if="data">
           <template v-for="(category, categoryKey) in data">
-            <b-form v-if="category.active" :key="categoryKey" class="mb-3">
+            <b-form v-if="category.active" :key="categoryKey">
               <component 
                 v-for="(field, fieldKey) in category.fields"
                 :key="fieldKey"
@@ -35,11 +36,9 @@
                 :category="categoryKey"
                 :field="field"
               ></component>
-              <b-button size="sm" variant="outline-primary">Add field</b-button>
             </b-form>
           </template>          
-        </template>   
-        <b-button size="sm" variant="outline-primary" class="mb-3">Add form</b-button>               
+        </template>                  
       </b-col>
     </b-row>
   </b-container>
@@ -82,10 +81,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.json {
-  min-height: 20rem;
-  height: 88%;
-}
-</style>
